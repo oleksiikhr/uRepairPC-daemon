@@ -1,0 +1,24 @@
+{
+  "name": "@urepairpc/daemon",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uRepairPC/daemon.git"
+  },
+  "author": "Alexey Khrushch, alexeykhr@outlook.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uRepairPC/daemon/issues"
+  },
+  "homepage": "https://github.com/uRepairPC/daemon#readme",
+  "dependencies": {
+    "node-windows": "^0.1.14",
+    "request": "^2.88.0",
+    "socket.io-client": "^2.1.1",
+    "systeminformation": "^3.45.7"
+  }
+}
