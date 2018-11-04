@@ -1,32 +1,60 @@
 'use strict'
 
-// const request = require('request')
+// const socket = require('socket.io-client')(config.SERVER_WS)
+// const config = require('./config')
+// const fs = require('fs')
+
+/*
+ * Working with file. Get all data.
+ */
+
+// const isExistsFile = fs.existsSync(FILE_NAME)
 //
-// request('http://google.com', (err, resp, body) => {
-//   console.log('error:', err)
-//   console.log('statusCode:', resp)
-// })
+// if (isExistsFile) {
+//   const data = fs.readFileSync(FILE_NAME, {
+//     encoding: ENCODING
+//   })
 //
-// const socket = require('socket.io-client')('http://localhost:3000')
-//
+//   try {
+//     console.log(data, JSON.parse(data))
+//   } catch (e) {
+//     console.log(e)
+//   }
+// } else {
+//   fs.writeFileSync(FILE_NAME, JSON.stringify({ data1: 'data1123' }), {
+//     encoding: ENCODING
+//   })
+// }
+
 // socket.on('connect', () => {
 //   console.log('connect')
+//   socket.emit('authentication', { data1: 'data1-test', data2: 'data2-test123' })
+//   socket.on('authenticated', () => {
+//     console.log('Here')
+//     // Use
+//   })
 // })
-//
+
+// socket.on('test:App\\Events\\NewEvent', (data) => {
+//   console.log(data)
+// })
+
 // socket.on('disconnect', () => {
 //   console.log('disconnect')
 // })
-//
+
+
 // setInterval(() => {
 //   socket.emit('event', 'data')
 // }, 2000)
 
+//
 // const si = require('systeminformation')
 //
 // si.getAllData()
 //   .then(cb => console.log(cb))
 //   .catch(error => console.error(error))
-
+//
 // console.log(si.time())
 //
 // console.log('-----------------')
