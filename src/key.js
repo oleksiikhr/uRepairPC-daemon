@@ -1,3 +1,5 @@
+'use strict'
+
 /*
  * Import
  */
@@ -33,7 +35,7 @@ const parseAuth = (args) => {
 /** @return void */
 const storeFile = (data) => {
   fs.writeFileSync(path.resolve(__dirname, '../' + config.FILE_NAME), JSON.stringify(data), {
-    encoding: config.ENCODING_FILE
+    encoding: config.FILE_ENCODING
   })
 }
 
@@ -81,7 +83,7 @@ request.post(config.URL_KEY, {
   }
 }, (err, response, body) => {
   if (err && typeof body !== 'object') {
-    return false
+    return
   }
 
   storeFile(body)

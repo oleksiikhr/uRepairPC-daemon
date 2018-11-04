@@ -1,3 +1,5 @@
+'use strict'
+
 const Service = require('node-windows').Service
 const packageJSON = require('../package')
 const path = require('path')

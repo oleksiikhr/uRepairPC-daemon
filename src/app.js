@@ -1,7 +1,7 @@
 'use strict'
 
-// const socket = require('socket.io-client')(config.SERVER_WS)
 // const config = require('./config')
+// const socket = require('socket.io-client')(config.SERVER_WS)
 // const fs = require('fs')
 
 /*
@@ -42,7 +42,6 @@
 // socket.on('disconnect', () => {
 //   console.log('disconnect')
 // })
-
 
 // setInterval(() => {
 //   socket.emit('event', 'data')
