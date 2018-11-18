@@ -4,9 +4,8 @@
  * Import
  */
 
+const config = require('../config/index')
 const request = require('request')
-const config = require('./config')
-const path = require('path')
 const fs = require('fs')
 
 /*
@@ -28,13 +27,13 @@ const parseAuth = (args) => {
 
   return {
     login: data[0],
-    password: data[1]
+    secret: data[1]
   }
 }
 
 /** @return void */
 const storeFile = (data) => {
-  fs.writeFileSync(path.resolve(__dirname, '../' + config.FILE_NAME), JSON.stringify(data), {
+  fs.writeFileSync(config.FILE_PATH, JSON.stringify(data), {
     encoding: config.FILE_ENCODING
   })
 }
@@ -44,7 +43,7 @@ const storeFile = (data) => {
  */
 
 // Variables
-let password = ''
+let secret = ''
 let login = ''
 let id = 0
 
@@ -56,7 +55,7 @@ process.argv.forEach((val, index) => {
     const data = parseAuth(args)
 
     if (data) {
-      ({ login, password } = data)
+      ({ login, secret } = data)
     }
 
   } else if (hasArg(args, 'id')) {
@@ -65,26 +64,34 @@ process.argv.forEach((val, index) => {
 })
 
 // Checking incoming data
-if (!password || !login || !id) {
+if (!secret || !login || !id) {
+  console.clear()
   console.log('----- Not all data transferred -----')
-  console.log(`Password: ${password ? '***' : 'none'}`)
-  console.log(`Login: ${login || 'none'}`)
-  console.log(`ID: ${id || 'none'}`)
+  console.log(`Secret: ${secret ? '***' : '-'}`)
+  console.log(`Login: ${login || '-'}`)
+  console.log(`ID: ${id || '-'}`)
   console.log()
   console.log('Structure:')
-  console.log('node /path/to/src/key.js --auth=login@pass --id=1')
+  console.log('node /path/to/src/key.js --auth=login@secret --id=1')
   return
 }
 
 // Trying to get the key for this PC and store.
 request.post(config.URL_KEY, {
   json: {
-    login, password, id
+    id, login, secret
   }
 }, (err, response, body) => {
-  if (err && typeof body !== 'object') {
+  if (err || typeof body !== 'object') {
+    console.log('Unknown error')
     return
   }
 
-  storeFile(body)
+  if (!body.success) {
+    console.log(body.error || 'Unknown error')
+    return
+  }
+
+  console.log('Success')
+  storeFile(body.data)
 })

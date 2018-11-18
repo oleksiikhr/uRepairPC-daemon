@@ -1,7 +1,5 @@
 # uRepairPC - Daemon
 
-> Part of the project `uRepairPC`.
-
 <p align="center">
   <a href="https://github.com/uRepairPC/uRepairPC">The Whole Project</a>
 </p>

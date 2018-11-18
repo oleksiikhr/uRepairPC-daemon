@@ -1,47 +1,46 @@
 'use strict'
 
-// const config = require('./config')
-// const socket = require('socket.io-client')(config.SERVER_WS)
-// const fs = require('fs')
+const config = require('./config/index')
+const socket = require('socket.io-client')(config.SERVER_WS)
+const fs = require('fs')
 
 /*
  * Working with file. Get all data.
  */
 
-// const isExistsFile = fs.existsSync(FILE_NAME)
-//
-// if (isExistsFile) {
-//   const data = fs.readFileSync(FILE_NAME, {
-//     encoding: ENCODING
-//   })
-//
-//   try {
-//     console.log(data, JSON.parse(data))
-//   } catch (e) {
-//     console.log(e)
-//   }
-// } else {
-//   fs.writeFileSync(FILE_NAME, JSON.stringify({ data1: 'data1123' }), {
-//     encoding: ENCODING
-//   })
-// }
+const isExistsFile = fs.existsSync(config.FILE_PATH)
+let pcData = {}
 
-// socket.on('connect', () => {
-//   console.log('connect')
-//   socket.emit('authentication', { data1: 'data1-test', data2: 'data2-test123' })
-//   socket.on('authenticated', () => {
-//     console.log('Here')
-//     // Use
-//   })
-// })
+if (isExistsFile) {
+  const data = fs.readFileSync(config.FILE_PATH, {
+    encoding: config.FILE_ENCODING
+  })
 
-// socket.on('test:App\\Events\\NewEvent', (data) => {
-//   console.log(data)
-// })
+  try {
+    pcData = JSON.parse(data)
+  } catch (e) {
+    console.log('process.exit(1)')
+    process.exit(1)
+  }
+} else {
+  console.log('process.exit(1)')
+  process.exit(1)
+}
 
-// socket.on('disconnect', () => {
-//   console.log('disconnect')
-// })
+console.log('--> send to websocket', Object.assign({ type: 'pc' }, pcData))
+
+socket.on('connect', () => {
+  console.log('connect')
+  socket.emit('authentication', Object.assign({ type: 'pc' }, pcData))
+  socket.on('authenticated', () => {
+    console.log('Authenticated')
+    // Use
+  })
+})
+
+socket.on('disconnect', () => {
+  console.log('disconnect')
+})
 
 // setInterval(() => {
 //   socket.emit('event', 'data')
