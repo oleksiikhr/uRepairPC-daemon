@@ -2,10 +2,6 @@
 
 > Part of the project `uRepairPC`.
 
-<p align="center">
-  <a href="https://github.com/uRepairPC/uRepairPC">The Whole Project</a>
-</p>
-
 ## Description
 
 <p>The service is installed on a working computer and works as a daemon.
